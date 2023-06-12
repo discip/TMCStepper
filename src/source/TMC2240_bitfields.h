@@ -142,6 +142,18 @@ namespace TMC2240_n {
 };
 
 namespace TMC2240_n {
+  struct GLOBAL_SCALER_t {
+    constexpr static uint8_t address = 0xB;
+    union {
+      uint8_t sr;
+      struct {
+           uint8_t  GLOBALSCALER : 8;
+      };
+    };
+  };
+};
+
+namespace TMC2240_n {
   struct IHOLD_IRUN_t {
     constexpr static uint8_t address = 0x10;
     union {
@@ -160,6 +172,55 @@ namespace TMC2240_n {
 };
 
 namespace TMC2240_n {
+  struct TSTEP {
+    constexpr static uint8_t address = 0x12;
+    union {
+      uint32_t sr;
+      struct {
+        uint32_t  tstep : 20;
+      };
+    };
+  };
+};
+
+namespace TMC2240_n {
+  struct TPWMTHRS {
+    constexpr static uint8_t address = 0x13;
+    union {
+      uint32_t sr;
+      struct {
+        uint32_t  tpwmthrs : 20;
+      };
+    };
+  };
+};
+
+
+namespace TMC2240_n {
+  struct TCOOLTHRS {
+    constexpr static uint8_t address = 0x14;
+    union {
+      uint32_t sr;
+      struct {
+        uint32_t  tcoolthrs : 20;
+      };
+    };
+  };
+};
+
+namespace TMC2240_n {
+  struct THIGH {
+    constexpr static uint8_t address = 0x15;
+    union {
+      uint32_t sr;
+      struct {
+        uint32_t  thigh : 20;
+      };
+    };
+  };
+};
+
+namespace TMC2240_n {
   struct CHOPCONF_t {
     constexpr static uint8_t address = 0x6C;
     union {
@@ -170,10 +231,11 @@ namespace TMC2240_n {
                 hend : 4;
         bool    fd3 : 1,
                 disfdcc : 1,
+                        : 1,
                 chm : 1;
         uint8_t TBL : 2;
-        bool           : 1,
-                vhighfs : 1,
+                    : 1;
+        bool     vhighfs : 1,
                 vhighchm : 1;
         uint8_t tpfd : 4,
                 mres : 4;
@@ -200,9 +262,9 @@ namespace TMC2240_n {
         bool              : 1;
         uint8_t    sedn   : 2;
         bool       seimin : 1;
-        uint8_t    sgt    : 7;
-        bool              : 1;
-        uint8_t           : 7;
+        int8_t     sgt    : 7,
+                          : 1;
+        bool       sfilt  : 1;
       };
     };
   };
